@@ -2,7 +2,7 @@ import 'styled-components/native';
 
 import theme from '../theme';
 
-declare module 'styled-components' {
+declare module 'styled-components/native' {
   // CRIAR UMA TIPAGEM BASEADA NO CONTEÚDO DO MEU TEMA
   type ThemeType = typeof theme;
 
