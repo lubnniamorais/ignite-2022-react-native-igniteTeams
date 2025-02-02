@@ -3,10 +3,16 @@ import { Filter } from '@components/Filter';
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
 import { Input } from '@components/Input';
+import { useState } from 'react';
+import { FlatList } from 'react-native';
 
-import { Container, Form } from './styles';
+import { Container, Form, HeaderList, NumberOfPlayers } from './styles';
 
 export function Players() {
+  // Nessse estado iremos armazenar o time que está selecionado
+  const [team, setTeam] = useState('TIME A');
+  const [players, setPlayers] = useState([]);
+
   return (
     <Container>
       <Header showBackButton />
@@ -22,7 +28,22 @@ export function Players() {
         <ButtonIcon icon="add" />
       </Form>
 
-      <Filter title="Time A" />
+      <HeaderList>
+        <FlatList
+          data={['TIME A', 'TIME B']}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <Filter
+              title={item}
+              isActive={item === team}
+              onPress={() => setTeam(item)} // Aqui faz a troca do time selecionado
+            />
+          )}
+          horizontal
+        />
+
+        <NumberOfPlayers>{players.length}</NumberOfPlayers>
+      </HeaderList>
     </Container>
   );
 }
